@@ -13,9 +13,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(default="", max_length=80)
 
     username = models.CharField(max_length=150, unique=True, validators=[UnicodeUsernameValidator])
-    can_be_contracted = models.BooleanField(default=False)
+    can_be_contacted = models.BooleanField(default=False)
     can_data_be_shared = models.BooleanField(default=False)
-    birth_date = models.DateField()
+    birth_date = models.DateField()  # add past check ?
     created_time = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
