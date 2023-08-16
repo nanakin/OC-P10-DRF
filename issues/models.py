@@ -1,9 +1,15 @@
 from django.db import models
 from django.conf import settings
+import uuid
+
 
 class AuthoredAndTimestamped:
     author = models.ForeignKey("Contributor", on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
 
 class Project(models.Model, AuthoredAndTimestamped):
     TYPE_CHOICES = [
@@ -52,10 +58,20 @@ class Issue(models.Model, AuthoredAndTimestamped):
 
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=2048, blank=True)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default="TODO")
+    status = models.CharField(max_length=4, choices=STATUS_CHOICES, default="TODO")
     priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES)
-    tag = models.CharField(max_length=3, choices=TAG_CHOICES)
+    tag = models.CharField(max_length=4, choices=TAG_CHOICES)
+    project = models.ForeignKey(to=Project, on_delete=models.CASCADE)
     assigned_to = models.ForeignKey(to=Contributor, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f"[{self.tag.name} | {self.status.name} | {self.priority.name}] {self.title}"
+
+
+class Comment(models.Model, AuthoredAndTimestamped):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    description = models.TextField(max_length=2048)
+    project = models.ForeignKey(to=Issue, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.uuid}"
