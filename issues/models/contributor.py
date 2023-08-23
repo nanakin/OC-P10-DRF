@@ -3,11 +3,11 @@ from django.db import models
 
 
 class Contributor(models.Model):
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="contributing_to")
-    project = models.ForeignKey(to="Project", on_delete=models.CASCADE, related_name="contributors")
+    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    contribute_to = models.ForeignKey(to="Project", on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user', 'project')
+        unique_together = ('user', 'contribute_to')
 
     def __str__(self):
-        return f"{self.user} > {self.project}"
+        return f"{self.user} > {self.contribute_to}"

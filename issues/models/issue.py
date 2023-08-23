@@ -2,7 +2,7 @@ from django.db import models
 from .shared import AuthoredAndTimestamped
 
 
-class Issue(models.Model, AuthoredAndTimestamped):
+class Issue(AuthoredAndTimestamped):
 
     TAG_CHOICES = [
         ("BUG", "Bug"),
@@ -26,7 +26,8 @@ class Issue(models.Model, AuthoredAndTimestamped):
     priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES)
     tag = models.CharField(max_length=4, choices=TAG_CHOICES)
     project = models.ForeignKey(to="Project", on_delete=models.CASCADE, related_name="issues")
-    assigned_to = models.ForeignKey(to="Contributor", on_delete=models.SET_NULL, null=True)
+    assigned_to = models.ForeignKey(to="Contributor", on_delete=models.SET_NULL, null=True,
+                                    related_name="issues_assigned")
 
     def __str__(self):
         return f"[{self.tag} | {self.status} | {self.priority}] {self.title}"
