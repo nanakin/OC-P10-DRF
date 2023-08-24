@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Contributor(models.Model):
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="contributions")
     contribute_to = models.ForeignKey(to="Project", on_delete=models.CASCADE)
 
     class Meta:

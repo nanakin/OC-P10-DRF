@@ -15,15 +15,14 @@ class ProjectViewSet(viewsets.ModelViewSet):
         if self.action == "list":
             return ProjectListSerializer
         elif self.action == "create":
-            return ProjectCreateSerializer
+            return ProjectSerializer
         else:
             return ProjectDetailSerializer
 
     @transaction.atomic  # required ?
     def perform_create(self, serializer):
         user = User.objects.get(username="anna")  # to be changed by self.request.user
+        serializer.validated_data["author"] = user
         project = serializer.save()
-        contributor = Contributor.objects.create(user=user, contribute_to=project)
-        project.author = contributor
-        project.save()
+        Contributor.objects.create(user=user, contribute_to=project)
 
