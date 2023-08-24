@@ -4,9 +4,10 @@ from users.models import User  # to be removed
 from issues.models import Contributor
 from rest_framework import viewsets
 from django.db import transaction
+from .shared import AutoFillAuthorMixin
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
+class ProjectViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
 
     # permission_classes = to be defined
     queryset = Project.objects.all()
@@ -21,8 +22,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     @transaction.atomic  # required ?
     def perform_create(self, serializer):
-        user = User.objects.get(username="anna")  # to be changed by self.request.user
-        serializer.validated_data["author"] = user
-        project = serializer.save()
-        Contributor.objects.create(user=user, contribute_to=project)
+        project = super().perform_create(serializer)
+        Contributor.objects.create(user=User.objects.get(username="anna"), contribute_to=project)
 
