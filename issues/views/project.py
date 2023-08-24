@@ -1,4 +1,4 @@
-from ..serializers import ProjectListSerializer, ProjectDetailSerializer, ProjectCreateSerializer
+from ..serializers import ProjectListSerializer, ProjectDetailSerializer, ProjectSerializer
 from ..models import Project
 from users.models import User  # to be removed
 from issues.models import Contributor
