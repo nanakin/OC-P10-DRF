@@ -7,7 +7,7 @@ class Contributor(models.Model):
     contribute_to = models.ForeignKey(to="Project", on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user', 'contribute_to')
+        unique_together = ('user', 'contribute_to')  # check if necessary
 
     def __str__(self):
         return f"{self.user} > {self.contribute_to}"
