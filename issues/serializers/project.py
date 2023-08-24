@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Project  # tester sans l'import
+from ..models import Project
 from .shared import ReadOnlyAuthor
 
 
