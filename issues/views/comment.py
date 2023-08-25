@@ -1,12 +1,13 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from issues.models import Comment
 from issues.serializers import CommentListSerializer, CommentDetailSerializer, CommentSerializer
 from .shared import AutoFillAuthorMixin
+from issues.permissions import IsAuthor, ReadOnlyContributor
 
 
 class CommentViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
 
-    # permission_classes = to be defined
+    permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor)]
 
     def get_queryset(self):
         queryset = Comment.objects.all()

@@ -10,3 +10,7 @@ class Comment(AuthoredAndTimestamped):
 
     def __str__(self):
         return f"{self.uuid}"
+
+    @property
+    def contributors(self):
+        return self.issue.project.contributors

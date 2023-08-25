@@ -5,11 +5,13 @@ from issues.models import Contributor
 from rest_framework import viewsets
 from django.db import transaction
 from .shared import AutoFillAuthorMixin
+from issues.permissions import IsAuthor, ReadOnlyContributor
+from rest_framework import permissions
 
 
 class ProjectViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
 
-    # permission_classes = to be defined
+    permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor)]
     queryset = Project.objects.all()
 
     def get_serializer_class(self):

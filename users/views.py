@@ -1,12 +1,13 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .models import User
 from .serializers import UserCreateSerializer, UserListSerializer, UserDetailSerializer
+from .permissions import UnauthenticatedCreation, OwnerEdition
 
 
 class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
-    # permission_classes = to be defined
+    permission_classes = [UnauthenticatedCreation | (permissions.IsAuthenticated & OwnerEdition)]
 
     def get_serializer_class(self):
         print(f"{self.action=} {self.queryset.model}")

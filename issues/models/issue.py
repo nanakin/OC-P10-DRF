@@ -31,3 +31,7 @@ class Issue(AuthoredAndTimestamped):
 
     def __str__(self):
         return f"[{self.tag} | {self.status} | {self.priority}] {self.title}"
+
+    @property
+    def contributors(self):
+        return self.project.contributors

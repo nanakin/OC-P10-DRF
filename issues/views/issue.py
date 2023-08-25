@@ -1,12 +1,13 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from issues.models import Issue
 from issues.serializers import IssueListSerializer, IssueDetailSerializer, IssueCreateSerializer
 from .shared import AutoFillAuthorMixin
+from issues.permissions import IsAuthor, ReadOnlyContributor
 
 
 class IssueViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
 
-    # permission_classes = to be defined
+    permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor)]
 
     def get_queryset(self):
         queryset = Issue.objects.all()
