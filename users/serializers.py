@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import User
 from datetime import date
-from django.contrib.auth.hashers import make_password
 
 REQUIRED_AGE = 15
 
