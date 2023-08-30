@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Comment
+from ..models import Comment, Issue
 from .shared import ReadOnlyAuthor
 
 
@@ -7,6 +7,12 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = "__all__"
+
+    def validate_issue(self, issue):
+        user = self.context.get("request").user
+        if len(Issue.objects.filter(project__contributors=user)) == 0:
+            raise serializers.ValidationError("Author of the comment isn't a contributors of the project")
+        return issue
 
 
 class CommentListSerializer(CommentSerializer):

@@ -18,10 +18,16 @@ class IssueCreateSerializer(IssueSerializer):
                  "project": 'The project is not compatible with the assigned contributor'})
         return data
 
+    def validate_project(self, project):
+        user = self.context.get("request").user
+        if project not in user.projects.all():
+            raise serializers.ValidationError("Author of the issue isn't a contributors of the project")
+        return project
+
 
 class IssueListSerializer(IssueSerializer):
     class Meta(IssueSerializer.Meta):
-        fields = ["id", "title"]
+        fields = ["id", "title", "project"]
 
 
 class IssueDetailSerializer(IssueSerializer, ReadOnlyAuthor):
