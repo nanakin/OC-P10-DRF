@@ -10,7 +10,6 @@ class ContributorViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mix
     permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):
-        return Contributor.objects.all()
-        # return self.request.user.contributions.all()
+        return self.request.user.contributions.all()
 
     serializer_class = ContributorSerializer

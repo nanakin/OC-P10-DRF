@@ -10,12 +10,8 @@ class IssueViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):
-        queryset = Issue.objects.all()
-        # user = User.objects.get(username="anna")  # to be changed by self.request.user
-        #if user.is_authenticated:  # utiliser les permission_classes ?
-        #queryset = queryset.filter(project__in=user.con.all())
-        #queryset = user.contributions.all() values_list("projects")
-        return queryset
+        user = self.request.user
+        return Issue.objects.filter(project__contributors=user)
 
     def get_serializer_class(self):
         if self.action == "list":

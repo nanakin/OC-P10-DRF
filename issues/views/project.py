@@ -14,8 +14,7 @@ class ProjectViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):
-        return Project.objects.all()
-        # return self.request.user.projects.all()
+        return self.request.user.projects.all()
 
     def get_serializer_class(self):
         if self.action == "list":

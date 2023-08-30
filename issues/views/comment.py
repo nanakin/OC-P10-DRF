@@ -10,8 +10,8 @@ class CommentViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):
-        queryset = Comment.objects.all()
-        return queryset
+        user = self.request.user
+        return Comment.objects.filter(issue__project__contributors=user)
 
     def get_serializer_class(self):
         if self.action == "list":
