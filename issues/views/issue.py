@@ -2,12 +2,12 @@ from rest_framework import viewsets, permissions
 from issues.models import Issue
 from issues.serializers import IssueListSerializer, IssueDetailSerializer, IssueCreateSerializer
 from .shared import AutoFillAuthorMixin
-from issues.permissions import IsAuthor, ReadOnlyContributor
+from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
 
 
 class IssueViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
 
-    permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor)]
+    permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):
         queryset = Issue.objects.all()
@@ -24,3 +24,4 @@ class IssueViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
             return IssueCreateSerializer
         else:
             return IssueDetailSerializer
+

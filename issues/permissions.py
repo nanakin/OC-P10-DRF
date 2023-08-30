@@ -1,6 +1,12 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
+class CreationOK(BasePermission):
+
+    def has_permission(self, request, view):
+        return view.action == "create"
+
+
 class IsAuthor(BasePermission):
 
     message = "Only the author of the resource can modify it."
