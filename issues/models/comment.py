@@ -12,5 +12,5 @@ class Comment(AuthoredAndTimestamped):
         return f"{self.uuid}"
 
     @property
-    def contributors(self):
-        return self.issue.project.contributors
+    def users_contributors(self):
+        return self.issue.users_contributors

@@ -19,4 +19,8 @@ class ContributorAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ("uuid", "issue")
+    list_display = ("uuid", "issue", "get_project")
+
+    @admin.display(ordering='issue_project', description='Project')
+    def get_project(self, obj):
+        return obj.issue.project
