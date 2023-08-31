@@ -10,7 +10,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def validate_issue(self, issue):
         user = self.context.get("request").user
-        if len(Issue.objects.filter(project__contributors=user)) == 0:
+        if issue not in Issue.objects.filter(project__contributors=user):
             raise serializers.ValidationError("Author of the comment isn't a contributors of the project")
         return issue
 

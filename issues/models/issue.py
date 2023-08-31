@@ -33,5 +33,5 @@ class Issue(AuthoredAndTimestamped):
         return f"[{self.tag} | {self.status} | {self.priority}] {self.title}"
 
     @property
-    def contributors(self):
-        return self.project.contributors
+    def users_contributors(self):
+        return self.project.users_contributors

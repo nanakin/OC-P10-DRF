@@ -24,7 +24,7 @@ class ProjectViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
         else:
             return ProjectDetailSerializer
 
-    @transaction.atomic  # required ?
+    @transaction.atomic
     def perform_create(self, serializer):
         project = super().perform_create(serializer)
         Contributor.objects.create(user=self.request.user, contribute_to=project)
