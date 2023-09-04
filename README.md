@@ -117,7 +117,10 @@ This application was tested with [python](https://www.python.org/) `3.11`  and [
    ```sh
    cd DRF-project
    ```
-3. Install dependencies in a new virtual environment:
+3. Install poetry if not installed yet, by following the official documentation here : https://python-poetry.org/docs/#installation
+
+4. Install project dependencies in a new virtual environment using poetry:
+
    ```sh
    poetry install
    ```
@@ -125,12 +128,12 @@ This application was tested with [python](https://www.python.org/) `3.11`  and [
    ```sh
    poetry shell
    ```
-4. Migrate the database
+5. Migrate the database
    ```sh
    python3 manage.py migrate
    ```
-5. Launch the server:
+6. Launch the server:
    ```sh
    python3 manage.py runserver
    ```
-6. Start using API [endpoints](#api-endpoints) `http://localhost:8000/api/...`
+7. Start using API [endpoints](#api-endpoints) `http://localhost:8000/api/...`
