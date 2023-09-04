@@ -1,9 +1,10 @@
-from rest_framework import viewsets, permissions, status
-from .models import User
-from rest_framework.response import Response
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
-from .serializers import UserCreateSerializer, UserListSerializer, UserDetailSerializer, PasswordSerializer
-from .permissions import UnauthenticatedCreation, Owner
+from rest_framework.response import Response
+
+from .models import User
+from .permissions import Owner, UnauthenticatedCreation
+from .serializers import PasswordSerializer, UserCreateSerializer, UserDetailSerializer, UserListSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

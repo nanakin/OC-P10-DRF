@@ -1,6 +1,8 @@
-from .shared import AuthoredAndTimestamped
 import uuid
+
 from django.db import models
+
+from .shared import AuthoredAndTimestamped
 
 
 class Comment(AuthoredAndTimestamped):

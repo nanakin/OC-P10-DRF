@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Project, Issue, Contributor, Comment
+
+from .models import Comment, Contributor, Issue, Project
 
 
 @admin.register(Project)

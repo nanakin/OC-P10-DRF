@@ -1,10 +1,11 @@
-from ..serializers import ProjectListSerializer, ProjectDetailSerializer, ProjectSerializer
-from issues.models import Contributor
-from rest_framework import viewsets
 from django.db import transaction
+from rest_framework import permissions, viewsets
+
+from issues.models import Contributor
+from issues.permissions import CreationOK, IsAuthor, ReadOnlyContributor
+
+from ..serializers import ProjectDetailSerializer, ProjectListSerializer, ProjectSerializer
 from .shared import AutoFillAuthorMixin
-from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
-from rest_framework import permissions
 
 
 class ProjectViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):

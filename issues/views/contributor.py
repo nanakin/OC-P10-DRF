@@ -1,7 +1,9 @@
-from rest_framework import mixins, viewsets, permissions
+from rest_framework import mixins, permissions, viewsets
+
+from issues.permissions import CreationOK, IsAuthor, ReadOnlyContributor
+
 from ..models import Contributor
 from ..serializers import ContributorSerializer
-from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
 from .shared import AutoFillAuthorMixin
 
 

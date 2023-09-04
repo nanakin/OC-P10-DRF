@@ -1,6 +1,7 @@
-from django.db import models
-from .shared import AuthoredAndTimestamped
 from django.conf import settings
+from django.db import models
+
+from .shared import AuthoredAndTimestamped
 
 
 class Project(AuthoredAndTimestamped):

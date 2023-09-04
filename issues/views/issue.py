@@ -1,8 +1,10 @@
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
+
 from issues.models import Issue
-from issues.serializers import IssueListSerializer, IssueDetailSerializer, IssueCreateSerializer
+from issues.permissions import CreationOK, IsAuthor, ReadOnlyContributor
+from issues.serializers import IssueCreateSerializer, IssueDetailSerializer, IssueListSerializer
+
 from .shared import AutoFillAuthorMixin
-from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
 
 
 class IssueViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):

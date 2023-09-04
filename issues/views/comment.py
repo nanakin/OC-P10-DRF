@@ -1,8 +1,10 @@
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
+
 from issues.models import Comment
-from issues.serializers import CommentListSerializer, CommentDetailSerializer, CommentSerializer
+from issues.permissions import CreationOK, IsAuthor, ReadOnlyContributor
+from issues.serializers import CommentDetailSerializer, CommentListSerializer, CommentSerializer
+
 from .shared import AutoFillAuthorMixin
-from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
 
 
 class CommentViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
