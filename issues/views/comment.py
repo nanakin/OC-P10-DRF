@@ -6,7 +6,6 @@ from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
 
 
 class CommentViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
-
     permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):

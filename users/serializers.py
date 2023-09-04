@@ -13,8 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate_birth_date(self, birth_date):
-        if date(year=(birth_date.year + REQUIRED_AGE), month=birth_date.month, day=birth_date.day) \
-                > date.today():
+        if date(year=(birth_date.year + REQUIRED_AGE), month=birth_date.month, day=birth_date.day) > date.today():
             raise serializers.ValidationError('Too young')
         return birth_date
 
@@ -43,7 +42,6 @@ class UserDetailSerializer(UserSerializer):
 
 
 class PasswordSerializer(serializers.Serializer):
-
     password = serializers.CharField(required=True)
 
     def update(self, instance, validated_data):

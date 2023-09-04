@@ -6,7 +6,6 @@ from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
 
 
 class IssueViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
-
     permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):
@@ -20,4 +19,3 @@ class IssueViewSet(AutoFillAuthorMixin, viewsets.ModelViewSet):
             return IssueCreateSerializer
         else:
             return IssueDetailSerializer
-

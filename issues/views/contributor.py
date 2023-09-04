@@ -5,9 +5,14 @@ from issues.permissions import IsAuthor, ReadOnlyContributor, CreationOK
 from .shared import AutoFillAuthorMixin
 
 
-class ContributorViewSet(AutoFillAuthorMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin,
-                         mixins.ListModelMixin, viewsets.GenericViewSet):  # disable update
-
+class ContributorViewSet(
+    AutoFillAuthorMixin,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.DestroyModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+):  # disable update
     permission_classes = [permissions.IsAuthenticated & (IsAuthor | ReadOnlyContributor | CreationOK)]
 
     def get_queryset(self):

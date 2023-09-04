@@ -10,12 +10,14 @@ class IssueSerializer(serializers.ModelSerializer):
 
 
 class IssueCreateSerializer(IssueSerializer):
-
     def validate(self, data):
         if "assigned_to" in data and data["assigned_to"].contribute_to != data["project"]:
             raise serializers.ValidationError(
-                {"assigned_to": 'Invalid assignment, the assignee is not contributing to the project',
-                 "project": 'The project is not compatible with the assigned contributor'})
+                {
+                    "assigned_to": 'Invalid assignment, the assignee is not contributing to the project',
+                    "project": 'The project is not compatible with the assigned contributor',
+                }
+            )
         return data
 
     def validate_project(self, project):
@@ -40,6 +42,9 @@ class IssueDetailSerializer(IssueSerializer, ReadOnlyAuthor):
 
         if assigned_to and assigned_to.contribute_to != project:
             raise serializers.ValidationError(
-                {"assigned_to": 'Invalid assignment, the assignee is not contributing to the project',
-                 "project": 'The project is not compatible with the assigned contributor'})
+                {
+                    "assigned_to": 'Invalid assignment, the assignee is not contributing to the project',
+                    "project": 'The project is not compatible with the assigned contributor',
+                }
+            )
         return data

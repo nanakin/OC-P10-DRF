@@ -1,4 +1,4 @@
-from .comment import Comment
-from .issue import Issue
-from .project import Project
-from .contributor import Contributor
+from .comment import Comment  # noqa: F401
+from .issue import Issue  # noqa: F401
+from .project import Project  # noqa: F401
+from .contributor import Contributor  # noqa: F401

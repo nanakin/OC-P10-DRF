@@ -7,7 +7,6 @@ from .permissions import UnauthenticatedCreation, Owner
 
 
 class UserViewSet(viewsets.ModelViewSet):
-
     def get_queryset(self):
         user = self.request.user
         return User.objects.filter(id=user.id)
@@ -18,7 +17,6 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             self.permission_classes = [UnauthenticatedCreation]
         return super(UserViewSet, self).get_permissions()
-
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -37,8 +35,7 @@ class UserViewSet(viewsets.ModelViewSet):
             user.save()
             return Response({'status': 'password set'})
         else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['post'])
     def change_password(self, request, pk=None):
